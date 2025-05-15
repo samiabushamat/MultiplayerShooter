@@ -1,0 +1,12 @@
+res://Scenes/Main.tscn
+res://addons/player_controller/Scripts/AnimationPlayer.cs
+res://addons/player_controller/Scripts/Stamina.cs
+res://addons/player_controller/Scripts/Gravity.cs
+res://addons/player_controller/Scripts/Mouse.cs
+res://addons/player_controller/Scripts/Bobbing.cs
+res://addons/player_controller/Scripts/StairsSystem.cs
+res://addons/player_controller/Examples/MovementTestbed/LowGravityArea3D.cs
+res://addons/player_controller/Scripts/FieldOfView.cs
+res://addons/player_controller/Scripts/CapsuleCollider.cs
+res://addons/player_controller/Scripts/HealthSystem.cs
+res://addons/player_controller/Scripts/PlayerController.cs
