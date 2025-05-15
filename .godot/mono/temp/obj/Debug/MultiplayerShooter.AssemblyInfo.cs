@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MultiplayerShooter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e31c7680deff25b1f2b21bbee3b08edd5ebc44f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb8a0a071e760caad831db95debfcce32df81473")]
 [assembly: System.Reflection.AssemblyProductAttribute("MultiplayerShooter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MultiplayerShooter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

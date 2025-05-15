@@ -5,7 +5,7 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_r150o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r150o"]
-albedo_color = Color(0.231373, 0.0509804, 0.678431, 1)
+albedo_color = Color(1, 0.0117647, 1, 1)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r150o"]
 
@@ -26,6 +26,8 @@ size = Vector3(100, 0.1, 100)
 
 [node name="Player" parent="." instance=ExtResource("1_r150o")]
 platform_floor_layers = 4294967042
+WalkSpeed = 8.0
+SprintSpeed = 9.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
@@ -46,12 +48,12 @@ compositor = SubResource("Compositor_kln2b")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.1397, 103.89, 12.2002)
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+[node name="StaticBodyCube" type="StaticBody3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBodyCube"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.82139, 0.870836, 0.00820541)
 shape = SubResource("BoxShape3D_idj7w")
 debug_color = Color(0, 0, 0, 0.42)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2/CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBodyCube/CollisionShape3D"]
 mesh = SubResource("BoxMesh_r150o")
