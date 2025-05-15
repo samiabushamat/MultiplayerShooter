@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 
 namespace PolarBears.PlayerControllerAddon;
 
@@ -159,7 +159,7 @@ public partial class PlayerController : CharacterBody3D
 			// Used both for detecting the moment when we enter into crouching mode and the moment when we're already
 			// in the crouching mode
 			if (Input.IsActionPressed("crouch") ||
-			    (doesCapsuleHaveCrouchingHeight && isHeadTouchingCeiling))
+				(doesCapsuleHaveCrouchingHeight && isHeadTouchingCeiling))
 			{
 				CapsuleCollider.Crouch((float)delta, CrouchTransitionSpeed);
 				_currentSpeed = CrouchSpeed;
@@ -174,7 +174,7 @@ public partial class PlayerController : CharacterBody3D
 
 		// Each component of the boolean statement for sprinting is required
 		if (Input.IsActionPressed("sprint") && !isHeadTouchingCeiling && 
-		    !doesCapsuleHaveCrouchingHeight && !isPlayerDead)
+			!doesCapsuleHaveCrouchingHeight && !isPlayerDead)
 		{
 			_currentSpeed = SprintSpeed;
 		}
@@ -252,66 +252,66 @@ public partial class PlayerController : CharacterBody3D
 		
 		FieldOfView.PerformFovAdjustment(fovParams);
 
-        StairsSystem.UpStairsCheckParams upStairsCheckParams = new StairsSystem.UpStairsCheckParams
-        {
-            IsOnFloorCustom = isOnFloorCustom(),
-            IsCapsuleHeightLessThanNormal = CapsuleCollider.IsCapsuleHeightLessThanNormal(),
-            CurrentSpeedGreaterThanWalkSpeed = _currentSpeed > WalkSpeed,
-            IsCrouchingHeight = CapsuleCollider.IsCrouchingHeight(),
-            Delta = (float)delta,
-            FloorMaxAngle = FloorMaxAngle,
-            GlobalPositionFromDriver = GlobalPosition,
-            Velocity = Velocity,
-            GlobalTransformFromDriver = GlobalTransform,
-            Rid = GetRid()
-        };
-        
-        // TODO: SnapUpStairsCheck influences the ability of player to crouch because of `stepHeightY <= 0.01` part
-        // Ideally, it should not. SnapUpStairsCheck and SnapDownStairsCheck should be called, when player is actually
-        // on the stairs
+		StairsSystem.UpStairsCheckParams upStairsCheckParams = new StairsSystem.UpStairsCheckParams
+		{
+			IsOnFloorCustom = isOnFloorCustom(),
+			IsCapsuleHeightLessThanNormal = CapsuleCollider.IsCapsuleHeightLessThanNormal(),
+			CurrentSpeedGreaterThanWalkSpeed = _currentSpeed > WalkSpeed,
+			IsCrouchingHeight = CapsuleCollider.IsCrouchingHeight(),
+			Delta = (float)delta,
+			FloorMaxAngle = FloorMaxAngle,
+			GlobalPositionFromDriver = GlobalPosition,
+			Velocity = Velocity,
+			GlobalTransformFromDriver = GlobalTransform,
+			Rid = GetRid()
+		};
+		
+		// TODO: SnapUpStairsCheck influences the ability of player to crouch because of `stepHeightY <= 0.01` part
+		// Ideally, it should not. SnapUpStairsCheck and SnapDownStairsCheck should be called, when player is actually
+		// on the stairs
 
-        StairsSystem.UpStairsCheckResult upStairsCheckResult = StairsSystem.SnapUpStairsCheck(upStairsCheckParams);
+		StairsSystem.UpStairsCheckResult upStairsCheckResult = StairsSystem.SnapUpStairsCheck(upStairsCheckParams);
 
-        if (upStairsCheckResult.UpdateRequired)
-        {
-	        upStairsCheckResult.Update(this);
-        }
-        else
-        {
-            MoveAndSlide();
-        
-            StairsSystem.DownStairsCheckParams downStairsCheckParams = new StairsSystem.DownStairsCheckParams
-            {
-                IsOnFloor = IsOnFloor(),  // TODO: replace on IsOnFloor Custom
-                IsCrouchingHeight = CapsuleCollider.IsCrouchingHeight(),
-                LastFrameWasOnFloor = _lastFrameWasOnFloor,
-                CapsuleDefaultHeight = CapsuleCollider.GetDefaultHeight(),
-                CurrentCapsuleHeight = CapsuleCollider.GetCurrentHeight(),
-                FloorMaxAngle = FloorMaxAngle,
-                VelocityY = Velocity.Y,
-                GlobalTransformFromDriver = GlobalTransform,
-                Rid = GetRid()
-            };
-        
-            StairsSystem.DownStairsCheckResult downStairsCheckResult = StairsSystem.SnapDownStairsCheck(
-	            downStairsCheckParams);
+		if (upStairsCheckResult.UpdateRequired)
+		{
+			upStairsCheckResult.Update(this);
+		}
+		else
+		{
+			MoveAndSlide();
+		
+			StairsSystem.DownStairsCheckParams downStairsCheckParams = new StairsSystem.DownStairsCheckParams
+			{
+				IsOnFloor = IsOnFloor(),  // TODO: replace on IsOnFloor Custom
+				IsCrouchingHeight = CapsuleCollider.IsCrouchingHeight(),
+				LastFrameWasOnFloor = _lastFrameWasOnFloor,
+				CapsuleDefaultHeight = CapsuleCollider.GetDefaultHeight(),
+				CurrentCapsuleHeight = CapsuleCollider.GetCurrentHeight(),
+				FloorMaxAngle = FloorMaxAngle,
+				VelocityY = Velocity.Y,
+				GlobalTransformFromDriver = GlobalTransform,
+				Rid = GetRid()
+			};
+		
+			StairsSystem.DownStairsCheckResult downStairsCheckResult = StairsSystem.SnapDownStairsCheck(
+				downStairsCheckParams);
 
-            if (downStairsCheckResult.UpdateIsRequired)
-            {
-	            downStairsCheckResult.Update(this);
-            }
-        }
-        
-        StairsSystem.SlideCameraParams slideCameraParams = new StairsSystem.SlideCameraParams
-        {
-            IsCapsuleHeightLessThanNormal = CapsuleCollider.IsCapsuleHeightLessThanNormal(),
-            CurrentSpeedGreaterThanWalkSpeed = _currentSpeed > WalkSpeed,
-            BetweenCrouchingAndNormalHeight  = CapsuleCollider.IsBetweenCrouchingAndNormalHeight(),
-            Delta = (float)delta
-        };
-        
-        StairsSystem.SlideCameraSmoothBackToOrigin(slideCameraParams);
-    }
+			if (downStairsCheckResult.UpdateIsRequired)
+			{
+				downStairsCheckResult.Update(this);
+			}
+		}
+		
+		StairsSystem.SlideCameraParams slideCameraParams = new StairsSystem.SlideCameraParams
+		{
+			IsCapsuleHeightLessThanNormal = CapsuleCollider.IsCapsuleHeightLessThanNormal(),
+			CurrentSpeedGreaterThanWalkSpeed = _currentSpeed > WalkSpeed,
+			BetweenCrouchingAndNormalHeight  = CapsuleCollider.IsBetweenCrouchingAndNormalHeight(),
+			Delta = (float)delta
+		};
+		
+		StairsSystem.SlideCameraSmoothBackToOrigin(slideCameraParams);
+	}
 
 	private bool IsHeadTouchingCeiling()
 	{
@@ -325,9 +325,9 @@ public partial class PlayerController : CharacterBody3D
 
 		return false;
 	}
-     
-    private bool isOnFloorCustom()
-    {
-        return IsOnFloor() || StairsSystem.WasSnappedToStairsLastFrame();
-    }
+	 
+	private bool isOnFloorCustom()
+	{
+		return IsOnFloor() || StairsSystem.WasSnappedToStairsLastFrame();
+	}
 }

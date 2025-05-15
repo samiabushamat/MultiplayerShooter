@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://btrf8dc71l51l"]
+
+[ext_resource type="PackedScene" uid="uid://bei4nhkf8lwdo" path="res://addons/player_controller/PlayerController.tscn" id="1_r150o"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_r150o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r150o"]
+albedo_color = Color(0.231373, 0.0509804, 0.678431, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r150o"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r150o"]
+size = Vector3(100, 0.1, 100)
+
+[sub_resource type="Environment" id="Environment_r150o"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_idj7w"]
+
+[sub_resource type="Compositor" id="Compositor_kln2b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_idj7w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r150o"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_r150o")]
+platform_floor_layers = 4294967042
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("PlaneMesh_r150o")
+surface_material_override/0 = SubResource("StandardMaterial3D_r150o")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_r150o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_r150o")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r150o")
+camera_attributes = SubResource("CameraAttributesPractical_idj7w")
+compositor = SubResource("Compositor_kln2b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.1397, 103.89, 12.2002)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.82139, 0.870836, 0.00820541)
+shape = SubResource("BoxShape3D_idj7w")
+debug_color = Color(0, 0, 0, 0.42)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2/CollisionShape3D"]
+mesh = SubResource("BoxMesh_r150o")
